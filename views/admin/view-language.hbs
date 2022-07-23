@@ -1,0 +1,68 @@
+<!-- Button trigger modal-->
+<div class="container mt-5">
+    <button type="button" class="btn btn-success row d-flex justify-content-center ml-auto margin-top-5 "
+        data-toggle="modal" data-target="#modalCookie12">Add Language</button>
+
+    <!--Modal: modalCookie-->
+    <div class="modal fade top" id="modalCookie12" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+        aria-hidden="true" data-backdrop="true">
+        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <form action="/admin/add-language" method="post">
+                            <div class="form-outline ">
+                                <label class="form-label " for="form2Example12">Add Language</label>
+                                <input type="text" id="form2Example12" class="form-control" name="name"
+                                    style="width:100% " />
+                                <button type="submit" class="btn btn-success border border mt-3" style="width: 100%"><a
+                                        style="text-decoration:none; color:rgb(248, 241, 241)">Add</a></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--Modal: modalCookie-->
+</form>
+
+{{!-- table for showing category --}}
+
+
+<section class="my-3">
+    <div class="container ">
+
+
+
+        <table class="table mt-5" id="myTable">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Language</th>
+
+                    <th> </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each langView}}
+                <tr>
+                    <th scope="row">{{inc @index}}</th>
+                    <td>{{this.name}}</td>
+
+                    <td>
+
+                        <a href="/admin/delete-language/{{this._id}}" class="btn btn-danger"
+                            onclick="return confirm('Are you sure delete {{this.name}}?')">DELETE</a>
+
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>

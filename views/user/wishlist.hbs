@@ -1,0 +1,190 @@
+<style>
+  .removeButton {
+    position: absolute;
+
+    right: 39px;
+    z-index: 1;
+  }
+
+  .position {
+    position: relative;
+  }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<section class="product spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-4">
+        <div class="section-title">
+
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8">
+        <ul class="filter__controls">
+
+          {{!-- <li data-filter=".men">Malayalam</li>
+          <li data-filter=".">Hindi</li> --}}
+          {{!-- <li data-filter=".accessories">Accessories</li>
+          <li data-filter=".cosmetic">Cosmetics</li> --}}
+        </ul>
+      </div>
+    </div>
+
+    <div class="row property__gallery">
+
+      {{#each products}}
+      <div class="  col-lg-3 col-md-6 col-sm-6 mix women position">
+        <button class="btn btn-light btn-sm removeButton" id="button" type="button"
+          onclick="wishlistRemove('{{this._id}}','{{this.lookupProduct._id}}')">X</button>
+        <div class="product__item ">
+
+          <div class="product__item__pic set-bg" data-setbg="/product-images/{{this.lookupProduct._id}}.jpg"
+            id="wishlistRefresh" style="width:90% ; ,height:auto">
+            
+            <ul class="product__hover">
+              <li>
+                <a onclick="addToCart('{{this.lookupProduct._id}}')" title="AddToCart"><i class="bi bi-bag-check"></i></a>
+              </li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6><a href="/direct-checkout/{{this.lookupProduct._id}}">{{this.lookupProduct.name}}</a></h6>
+            <div class="rating">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+            <div class="product__price">₹{{this.lookupProduct.price}}</div>
+          </div>
+        </div>
+      </div>
+
+      {{/each}}
+
+
+
+
+
+
+    </div>
+  </div>
+</section>
+
+ <!-- Footer Section Begin -->
+<section  >
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-7">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="./index.html"><img src="images/logo.png" alt=""></a>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                    cilisis.</p>
+                    <div class="footer__payment">
+                        <a href="#"><img src="images/payment/payment-1.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-2.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-3.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-4.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-5.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-5">
+                <div class="footer__widget">
+                    <h6>Quick links</h6>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="footer__widget">
+                    <h6>Account</h6>
+                    <ul>
+                        <li><a href="/user-profile">My Account</a></li>
+                        {{!-- <li><a href="#">Orders Tracking</a></li>
+                        <li><a href="/checkout">Checkout</a></li> --}}
+                        <li><a href="wishlist">Wishlist</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-8">
+                <div class="footer__newslatter">
+                    <h6>NEWSLETTER</h6>
+                    <form action="#">
+                        <input type="text" placeholder="Email">
+                        <button type="submit" class="site-btn">Subscribe</button>
+                    </form>
+                    <div class="footer__social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <div class="footer__copyright__text">
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                </div>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Footer Section End -->
+ 
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<script src="/script.js"></script>
+
+<script>
+//removing product from cart
+function removeProduct(cartId,proId) {
+ 
+  $.ajax({
+      // const _this = this;
+      url: '/remove-product',
+      data: {
+          product: proId,
+          cart: cartId,
+          
+      },
+      method: 'post',
+      success: (response) => {
+          if (response.removeProducts) {
+              alert("Product Removed Successfully")
+              location.reload()
+
+          } else {
+              document.getElementById(proId).innerHTML =  response.removeProducts
+                                   
+          }
+      }
+  });
+
+}
+
+</script>
+
+<script src="/script.js">
+    
+</script>

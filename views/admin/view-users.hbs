@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" integrity="sha384-eoTu3+HydHRBIjnCVwsFyCpUDZHZSFKEJD0mc3ZqSBSb6YhZzRHeiomAUWCstIWo" crossorigin="anonymous">
+
+<!-- data-table-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+<!-- data-table-->
+<div class="container">
+
+<div class="">
+    <h2 class="text-center">Users Details</h2>
+</div>
+<table class="table" id="table_id">
+    <thead class="thead-dark">
+        <tr>
+
+            <th scope="col">No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number</th>
+            <th scope="col">Email</th>
+             <th scope="col">Order-Request</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each userInfo}}
+        <tr>
+
+            <th scope="row">{{inc @index}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.number}}</td>
+            <td>{{this.email}}</td>
+             {{#if request}}
+        <td>
+           
+          {{!-- <a href="/request-details" class="btn btn-dark btn-lg disabled" role="button" aria-disabled="true">Request</a> --}}
+          <a href="/admin/request-details/{{this._id}}" class="btn btn-dark btn-lg active width: 101px" role="button" aria-pressed="true"><i class="bi bi-bell-fill"></i></i></a>
+        </td> 
+        {{else}}
+        <td></td>
+        {{/if}}
+       <td id="{{this._id}}">    
+       
+            {{#if this.isBlocked}}
+
+<button onclick="userAction('{{this._id}}','unblock')"
+class="btn btn-success">Unblock</button> 
+{{else}}
+<button onclick="userAction('{{this._id}}','block')"
+class="btn btn-danger">Block</button>
+                         
+{{/if}}
+ </td>
+{{/each}}
+
+        </tr>
+
+    </tbody>
+</table>
+</div>
+<!-- data-table-->
+<script>
+    $(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+<!-- data-table-->
+<script>
+    function userAction(userId,action){
+if(confirm('Are you sure ?')) {
+    $.ajax({
+        url:"/admin/userAction",
+        data:{
+            userId,
+            action,
+        },
+        method:"post",
+success:(response)=>{
+$('#'+userId).load(location.href+" #"+userId)
+       }
+    })
+   }
+  }
+</script>

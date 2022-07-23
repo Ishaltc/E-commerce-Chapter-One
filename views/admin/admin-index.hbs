@@ -1,0 +1,227 @@
+{{# if success}}
+<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">
+        &times;
+    </a>
+    <strong>Successfully</strong>loged in
+</div>
+{{/if}}
+    
+
+<body>
+    <!-- Left Panel -->
+
+        <!-- /#header -->
+        <!-- Content -->
+        <div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                <!-- Widgets  -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-1">
+                                        <i class="pe-7s-cash"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text">₹<span class="count">{{totalIncome}}</span></div>
+                                            <div class="stat-heading">Revenue</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <i class="pe-7s-browser"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">{{totalProductCount}}</span></div>
+                                            <div class="stat-heading">Total-Products</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="pe-7s-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">{{totalUsersCount}}</span></div>
+                                            <div class="stat-heading">Clients</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-2">
+                                        <i class="pe-7s-cart"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span class="count">{{totalSalesCount}}</span></div>
+                                            <div class="stat-heading">Order Cancelled</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+                <div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+        <canvas id="myChart">
+
+        </canvas>
+
+       
+    </div>
+    
+  </div>
+  <div class="col-lg-8">
+    <div class="card">
+                 <canvas id="earning" ></canvas>
+                </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   {{!-- <div class="row mt-5">
+  <div class="col-sm-8">
+    <div class="card">
+        
+       
+ 
+
+
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </div>
+   </div>
+
+
+
+ --}}
+
+
+
+
+     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<script type="text/javascript"></script>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['COD', 'Razorpay'],
+                datasets: [{
+                    label: 'payment methods',
+                    data: [{{ paymentCounts }}],
+                backgroundColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54,162,235,1)',
+                    'rgba(255,206,86,1)'
+                ],
+            }]
+
+        },
+            options: {
+            responsive: true,
+        },
+            })
+
+var earning = document.getElementById('earning').getContext('2d');
+    var myChart = new Chart(earning, {
+        type: 'bar',
+        data: {
+            labels: ['Placed', 'Shipped', 'Delivered', 'Cancelled',],
+            datasets: [{
+                label: 'Order Status',
+                data: [{{statusDetails}}],
+            backgroundColor: [
+                'rgba(255, 206, 86, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(60, 170, 70, 1)',
+                'rgba(255, 0, 0, 1)',
+            ],
+        }]
+    },
+        options: {
+        responsive: true,
+    }
+    });
+
+
+     
+     </script>
+
+    

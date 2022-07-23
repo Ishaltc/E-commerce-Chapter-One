@@ -1,0 +1,70 @@
+
+<section>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center">Edit Product</h2>
+        <form action="/admin/edit-product/{{productInfo._id}}" method="post" id="addProducts" enctype="multipart/form-data">
+          <label for="">Name</label>
+          <input type="text" name="name" class="form-control border border-dark " value="{{productInfo.name}}">
+
+          <label for="">Author</label>
+          <input type="text" name="author" class="form-control border border-dark"value="{{productInfo.author}}">
+          </select>
+     <label for="">Description</label>
+          <input type="text" name="description" class="form-control border border-dark" style="width:100% height:auto,"value="{{productInfo.description}}">
+          <label for="">Stock</label>
+        
+          <input type="number" name="stock" placeholder="" class="form-control border border-dark my-1" style="width:40%" value="{{productInfo.stock}}">
+         
+          
+          <label for="">Price</label>
+          <input type="number" name="price" class="form-control border border-dark" style="width:40%"value="{{productInfo.price}}">
+           <label for="">Discount</label>
+          <input type="currency" name="discount" class="form-control border border-dark"  style="width:40%"value="{{productInfo.discount}}">
+          <div class="form-group mt-3 ml-3">
+          <select class="form-select border border-dark" name="category">
+              {{#each viewCat}}
+              <option class="dropdown-item" type="button" name="category">{{this.name}}</option>
+              {{/each}}
+              {{#each langView}}
+              <option class="dropdown-item" type="button" name="language">{{this.name}}</option>
+              {{/each}}
+          </div>
+          </select>
+          <label class="" for="">Category</label>
+          <select class="form-select ml-4 border border-dark" name="subcategory">
+            {{#each show}}
+            <option class="dropdown-item" type="button" name="subcategory">{{this.name}}</option>
+            {{/each}}
+
+
+
+            
+      </div>
+      </select>
+      <label for="" class="">Subcategory</label>
+
+      
+    </div>
+    
+    
+    <label for="">image</label>
+    <img src="/product-images/{{productInfo._id}}.jpg" alt="" style="width: 100px;height:auto" id="imgView">
+    <input type="file" class="form-control " name="image" onchange="viewImage(event)">  
+    {{!-- <input type="file" class="form-control " name="image1">   --}}
+    
+      <button type="submit" class="btn btn-warning mt-4 border border-dark">Submit</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  </div>
+  </div>
+
+</section> 
+<script>
+  function viewImage(event) {
+    document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+  } 
+</script>

@@ -1,0 +1,126 @@
+
+
+
+<!-- Button trigger modal-->
+<div class="container mt-5">
+    <button type="button" class="btn btn-success row d-flex justify-content-center ml-auto margin-top-5 "
+        data-toggle="modal" data-target="#modalCookie14">Add Subcategory</button>
+
+    <!--Modal: modalCookie-->
+    <div class="modal fade top" id="modalCookie14" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4"
+        aria-hidden="true" data-backdrop="true">
+        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <form action="/admin/add-subCat" method="post">
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form2Example14">Add Subcategory</label>
+                                <input type="text" id="form2Example14" class="form-control" name="name"
+                                    style="width:100% " />
+                                <button type="submit" class="btn btn-success border border mt-3" style="width: 100%"><a
+                                        style="text-decoration:none; color:rgb(248, 241, 241)">Add</a></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--Modal: modalCookie-->
+</form>
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Table</a></li>
+                            <li class="active">Data table</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal: modalCookie-->
+</form>
+{{!-- <div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Table</a></li>
+                            <li class="active">Data table</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+ 
+
+
+
+{{!-- table for showing category --}}
+
+
+<section class="my-3">
+    <div class="container ">
+
+
+
+        <table class="table mt-5" id="myTable">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Subcategory</th>
+
+                    <th> </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each datas}}
+                <tr>
+                    <th scope="row">{{inc @index}}</th>
+                    <td>{{this.name}}</td>
+
+                    <td>
+         
+         <a href="/admin/delete-subcategory/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure delete {{this.name}}?')">DELETE</a>
+
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+

@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <form action="/admin/admin-login" method="post">
+    <div class="form-group" style="width:60%">
+      <label for="exampleInputEmail1 ">Email address</label>
+      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    {{#if adminErr}}
+    <p class="text-danger">Invalid Admin</p>
+    {{/if}}
+    {{!-- {{#if noAdmin}}
+    <p class="text-danger">Invalid user</p>
+    {{/if}} --}}
+
+    <div class="form-group " style="width:60%">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <div class="form-group form-check">
+
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

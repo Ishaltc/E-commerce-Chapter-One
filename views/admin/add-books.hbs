@@ -1,0 +1,54 @@
+<section>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center">Add Books</h2>
+        <form action="/admin/add-books" method="post" id="addProducts" enctype="multipart/form-data">
+          <label for="">Name</label>
+          <input type="text" name="name" class="form-control border border-dark ">
+
+          <label for="">Author</label>
+          <input type="text" name="author" class="form-control border border-dark">
+          <label for="exampleFormControlTextarea1">Description</label>
+          <textarea class="form-control border border-dark" id="exampleFormControlTextarea1" name="description"
+            rows="3"></textarea>
+          <label for="">Stock</label>
+        
+          <input type="number" name="stock" class="form-control border border-dark my-1" style="width:40%" >
+         
+          <label for="">Price</label>
+          <input type="number" name="price" class="form-control border border-dark" style="width:40%">
+           <label for="">Discount</label>
+          <input type="currency" name="discount" class="form-control border border-dark"  style="width:40%">
+          <div class="form-group mt-3 ml-3 ">
+          <select class="form-select border border-dark" name="category">
+              {{#each viewCat}}
+              <option class="dropdown-item" type="button" name="category">{{this.name}}</option>
+              {{/each}}
+          </div>
+          </select>
+          <label class="" for="">Category</label>
+          <select class="form-select ml-4 border border-dark" name="subcategory">
+            {{#each show}}
+            <option class="dropdown-item" type="button" name="subcategory">{{this.name}}</option>
+            {{/each}}
+      </div>
+      </select>
+      <label for="" class="">Subcategory</label>
+
+      
+    </div>
+    </select>
+    <div class="mt-4">
+    <input type="file" class="form-control mt-3 " name="image">  
+    {{!-- <input type="file" class="form-control " name="image1">   --}}
+    </div>
+      <button type="submit" class="btn btn-warning mt-4 border border-dark">Submit</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  </div>
+  </div>
+
+</section> 

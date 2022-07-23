@@ -1,0 +1,238 @@
+
+
+
+<style>
+    input, label {
+  margin: 5px 5px;
+}
+
+.form-group {
+  margin: 30px auto;
+  width: 450px;
+}
+
+.form-control {
+  float: left;
+}
+
+#inputStreet {
+  width: 100%;
+}
+
+#inputCity {
+  width: 50%;
+}
+
+#inputState {
+  width: 15%;
+}
+
+#inputZip {
+  width: 28%;
+}
+
+#inputCounty {
+  width: 45%;
+}
+
+#inputCountry {
+  width: 50%;
+}
+
+</style>
+ {{!-- {{datas._id}}
+{{this._id}} --}}
+
+<div class="container " style="margin-top: 200px">
+    <h3 class="text-dark text-center">Update Address</h3>
+<div class="form-group">
+    
+    <form action="/editing-address/{{address._id}}" method="post">
+  <input type="street" 
+         class="form-control" 
+         id="autocomplete" 
+       
+         value="{{address.street}}"
+         name="street">
+ 
+  <input type="city" 
+         class="form-control" 
+         id="inputCity" 
+         value="{{address.city}}"
+         {{!-- placeholder="City" --}}
+         name="city">
+  
+  <input type="state" 
+         class="form-control" 
+         id="inputState" 
+         value="{{address.state}}"
+         name="state">
+  
+  <input type="zip" 
+         class="form-control" 
+         id="inputZip" 
+        value="{{address.zip}}"
+         name="zip">
+
+
+   
+  
+  
+  <input type="country" 
+         class="form-control" 
+         id="inputCountry" 
+         value="{{address.country}}"
+         name="country"> 
+         
+
+         
+         <button type="submit" class="btn btn-success text-center mt-4" style="margin-left: 172px">Submit</button>
+</div>
+</form>
+</div>
+<!-- Footer Section Begin -->
+<section  >
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-7">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="./index.html"><img src="images/logo.png" alt=""></a>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                    cilisis.</p>
+                    <div class="footer__payment">
+                        <a href="#"><img src="images/payment/payment-1.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-2.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-3.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-4.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-5.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-5">
+                <div class="footer__widget">
+                    <h6>Quick links</h6>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="footer__widget">
+                    <h6>Account</h6>
+                    <ul>
+                        <li><a href="/user-profile">My Account</a></li>
+                        {{!-- <li><a href="#">Orders Tracking</a></li>
+                        <li><a href="/checkout">Checkout</a></li> --}}
+                        <li><a href="wishlist">Wishlist</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-8">
+                <div class="footer__newslatter">
+                    <h6>NEWSLETTER</h6>
+                    <form action="#">
+                        <input type="text" placeholder="Email">
+                        <button type="submit" class="site-btn">Subscribe</button>
+                    </form>
+                    <div class="footer__social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <div class="footer__copyright__text">
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                </div>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Footer Section End -->
+ 
+
+<script>
+    var placeSearch, autocomplete;
+
+// List all address components (corresponds to form field IDs and Google address object)
+var componentForm = {
+  autocomplete: ['street_number', 'route'],
+  inputCity: 'locality',
+  inputState: 'administrative_area_level_1',
+  inputZip: 'postal_code',
+  inputCounty: 'administrative_area_level_2',
+  inputCountry: 'country'
+};
+
+// Create autocomplete object based on the autocomplete ("street") field
+// Location type restricted to geocode
+function initAutocomplete() {
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */ (document.getElementById('autocomplete')),
+      {type: ['geocode']});
+
+  // Call fillInAddress when user selects an address from dropdown
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+// Fill fields with values from Google Maps autocomplete object
+function fillInAddress() {
+
+  // Get place data from autocomplete object
+  var place = autocomplete.getPlace();
+  console.log(place);
+  
+  // Enable each field, then fill them with the corresponding value from the place object
+  for (var component in componentForm) {
+    document.getElementById(component).disabled = false;
+    document.getElementById(component).value = search(componentForm[component], place.address_components);
+  }
+
+  // Original Google Implementation - do not use
+  // Get each component of the address from the place
+  // object and fill the corresponding field
+//   for (var i = 0; i < place.address_components.length; i++) {
+
+//     var addressType = place.address_components[i].types[0];
+
+//     if (componentForm[addressType]) {
+//       var val = place.address_components[i][componentForm[addressType]];
+//       document.getElementById(addressType).value = val;
+//     }
+//   }
+  
+  // Fill the autocomplete field with values from the place object
+  // If a street number is not found, set the field to route only.
+  if (search("street_number", place.address_components) != "") {
+    document.getElementById("autocomplete").value = search("street_number", place.address_components) + " ";
+  }
+  document.getElementById("autocomplete").value += search("route", place.address_components);
+  
+  // Search the passed object for a specified address component/type and return the short_name value of the matched component/type
+  // If requested type does not exist in the placeObject, return an empty string
+  function search(type, placeObject) {
+    for (var i = 0; i < placeObject.length; i++) {
+      if (placeObject[i].types[0] === type) {
+        return placeObject[i].short_name;
+      } else if (i === placeObject.length - 1) {
+        return "";
+      }
+    }
+  }
+}
+
+</script>

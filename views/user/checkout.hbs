@@ -1,0 +1,385 @@
+
+
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb__links">
+          <a href="/"><i class="fa fa-home"></i> Home</a>
+          <span>Shopping cart</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<div  class="container">
+ 
+<div class="row">
+  {{#if userAddress.address}}
+  {{#each userAddress.addressDetails}}
+  
+  <div class="col-sm-4">
+    <div class="card">
+    
+      <div class="card-body">
+        <h5 class="card-title text-dark">Name:{{this.deliveryDetails.name}}<br>
+       Place:{{this.deliveryDetails.address}}<br>
+         City:{{this.deliveryDetails.city}}<br>
+     
+      
+        state:{{this.deliveryDetails.state}}<br>
+        Pincode:{{this.deliveryDetails.pincode}}<br>
+          Mobile:{{this.deliveryDetails.mobile}}<br>
+       </h5>
+        <p class="card-text"></p>
+         <button type="submit" class="site-btn"
+         onclick="autoFill('{{this.deliveryDetails.name}}','{{this.deliveryDetails.address}}','{{this.deliveryDetails.city}}','{{this.deliveryDetails.state}}','{{this.deliveryDetails.pincode}}','{{this.deliveryDetails.mobile}}')">Choose</button>
+      
+      </div>
+    </div>
+  </div>
+  {{/each}}
+  {{!-- <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Choose</a>
+      </div>
+    </div>
+  </div> --}}
+</div>
+{{/if}}
+</div>
+            
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+  <div class="container">
+    {{!-- <div class="row">
+      <div class="col-lg-12">
+        <h6 class="coupon__link"><span class="icon_tag_alt"></span>
+          <a href="#">Have a coupon?</a>
+          Click here to enter your code.
+        </h6>
+      </div>
+    </div> --}}
+    <form action="/checkout" class="checkout__form" id="checkout-form">
+      <div class="row">
+        <div class="col-lg-8">
+          <h5>Billing detail</h5>
+          <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-6">
+              <div class="checkout__form__input">
+                <p> Name <span>*</span></p>
+                <input type="text" name="name" id="name" />
+                <input type="text" name="userId" id="" value="{{user._id}}" hidden/>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="checkout__form__input">
+                <p>Address <span>*</span></p>
+                <input type="text" placeholder="Street Address" name="address" id="address"/>
+              </div>
+              <div class="checkout__form__input">
+                <p>Town/City <span>*</span></p>
+                <input type="text" name="city" id="city"/>
+              </div>
+              <div class="checkout__form__input">
+                <p>State <span>*</span></p>
+                <input type="state" name="state" id="state" />
+              </div>
+              <div class="checkout__form__input">
+                <p>Postcode/Zip <span>*</span></p>
+                <input type="postcode" name="pincode" id="pincode" />
+                
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="checkout__form__input">
+                <p>Phone <span>*</span></p>
+                <input type="text" name="mobile" id="mobile" />
+              </div>
+              <div class="col-lg-6">
+                <div class="coupon__code">
+                    <h6>Coupon codes</h6>
+                    <form action="#">
+                        <input type="text" placeholder="Enter your coupon code">
+                        <button type="submit" class="site-btn mt-2">Apply</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+
+            {{! <div class="col-lg-12">
+              <div class="checkout__form__checkbox">
+                <label for="acc">
+                  Create an acount?
+                  <input type="checkbox" id="acc">
+                  <span class="checkmark"></span>
+                </label>
+                <p>Create am acount by entering the information below. If you are a returing
+                  customer login at the <br />top of the page</p>
+              </div>
+              <div class="checkout__form__input">
+                <p>Account Password <span>*</span></p>
+                <input type="text">
+              </div>
+              <div class="checkout__form__checkbox">
+                <label for="note">
+                  Note about your order, e.g, special noe for delivery
+                  <input type="checkbox" id="note">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="checkout__form__input">
+                <p>Oder notes <span>*</span></p>
+                <input type="text" placeholder="Note about your order, e.g, special noe for delivery">
+              </div>
+            </div> }}
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="checkout__order">
+            <h5>Your order</h5>
+            <div class="checkout__order__product">
+              <ul>
+                <li>
+                  <span class="top__text">Product</span>
+                  <span class="top__text__right">Total</span>
+                   <span class="top__text__right mx-2">Qty</span>
+                </li>
+                {{!-- {{#if directPay}}
+                    <li>{{directPay.name}}<span>{{directPay.price}}</span><span class="mx-2">1</span></li>
+                    {{else}} --}}
+
+                    {{#if status}}
+ <li>{{byNowData.name}}<span>{{price}}</span><span class="mx-2">1-</span></li>
+{{else}}
+                {{#each product}}
+                <li>{{this.product.name}}<span>{{this.product.price}}</span><span class="mx-2">{{this.quantity}}-</span></li>
+                {{/each}}
+                 {{/if}} 
+               
+              </ul>
+            </div>
+            <div class="checkout__order__total">
+              <ul>
+                {{! <li>Subtotal <span>$ 750.0</span></li> }}
+               
+                 {{!-- {{#if directPay}}
+                 <li>Price<span>₹{{d
+                  irectPay.price}}</span></li>
+                 {{else}} --}}
+                 {{#if status}}
+                  <li>Total<span>₹{{total}}</span></li>
+                  {{else}}
+                <li>Total<span>₹{{total}}</span></li>
+                {{/if}}
+               {{!-- {{/if}} --}}
+              </ul>
+            </div>
+            <div class="checkout__order__widget">
+              {{!-- <label for="o-acc">
+                Create an acount?
+                <input type="checkbox" id="o-acc" />
+                <span class="checkmark"></span>
+              </label>
+              <p>Create am acount by entering the information below. If you are
+                a returing customer login at the top of the page.</p> --}}
+              {{!-- <label for="cod">
+                COD
+                <input type="checkbox" name="payment-method" id="cod" value="COD" />
+                <span class="checkmark"></span>
+              </label>
+              <label for="paypal">
+                PayPal
+                <input type="checkbox" name="payment-method" id="online" value="ONLINE" /> --}}
+                
+                <label for="cod">
+                  COD
+                  <input type="checkbox" name="payment-method" id="cod" value="COD" />
+                  <span class="checkmark"></span>
+                </label>
+                <label for="paypal">
+                  ONLINE
+                  <input type="checkbox" name="payment-method" id="paypal" value="ONLINE" />
+                  <span class="checkmark"></span>
+
+                </label>
+            </div>
+            <button type="submit" class="site-btn">Place oder</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<!-- Checkout Section End -->
+ <!-- Footer Section Begin -->
+<section  >
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-7">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="./index.html"><img src="images/logo.png" alt=""></a>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                    cilisis.</p>
+                    <div class="footer__payment">
+                        <a href="#"><img src="images/payment/payment-1.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-2.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-3.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-4.png" alt=""></a>
+                        <a href="#"><img src="images/payment/payment-5.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-5">
+                <div class="footer__widget">
+                    <h6>Quick links</h6>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="footer__widget">
+                    <h6>Account</h6>
+                    <ul>
+                        <li><a href="/user-profile">My Account</a></li>
+                        {{!-- <li><a href="#">Orders Tracking</a></li>
+                        <li><a href="/checkout">Checkout</a></li> --}}
+                        <li><a href="wishlist">Wishlist</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-8">
+                <div class="footer__newslatter">
+                    <h6>NEWSLETTER</h6>
+                    <form action="#">
+                        <input type="text" placeholder="Email">
+                        <button type="submit" class="site-btn">Subscribe</button>
+                    </form>
+                    <div class="footer__social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <div class="footer__copyright__text">
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                </div>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Footer Section End -->
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+<script>
+  $("#checkout-form").submit((e) => {
+  
+    e.preventDefault()
+    $.ajax({
+      url: '/checkout',
+      method: 'post',
+      data: $('#checkout-form').serialize(),
+      success: (response) => {
+       
+        if (response.codSuccess) {
+          location.href = '/order-success'
+        } else {
+      
+          razorpayPayment(response)
+
+        }
+      }
+    })
+  })
+
+  function razorpayPayment(order) {
+    var options = {
+      "key": "rzp_test_ejgdFayGndXzKn", // Enter the Key ID generated from the Dashboard
+      "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Chapter-One",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response) {
+
+        verifyPayment(response,order)
+      },
+      "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    };
+    const rzp1 = new Razorpay (options);
+    rzp1.open();
+
+  }
+  function verifyPayment(payment, order) {
+    $.ajax({
+      url: '/verify-payment',
+    data: {
+        payment,
+        order
+      },
+      method: 'post',
+    
+   success: (response) => {
+        if (response.status) {
+          location.href = '/order-success'
+        } else {
+      
+        alert("payment failed")
+
+        }
+      }
+    })
+  }
+</script>
+
+  <script>
+
+    function autoFill(name,address,city,state,pincode,mobile) {
+   
+        document.getElementById('name').value =name
+        document.getElementById('address').value = address
+        document.getElementById('city').value = city
+        document.getElementById('state').value = state
+        document.getElementById('pincode').value = pincode
+        document.getElementById('mobile').value = mobile
+    
+    }
+</script>

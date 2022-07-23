@@ -1,0 +1,130 @@
+<section class="my-3">
+  <div class="container ">
+    <table class="table mt-5" id="myTable">
+      <thead>
+        <tr>
+        
+          <th scope="col">No</th>
+          <th scope="col">Products</th>
+          <th></th>
+           <th>User</th>
+            <th scope="col">Date</th>
+          <th>Order Status</th>
+         
+         
+            <th scope="col">Address</th>
+        
+        
+          {{!-- <th scope="col">Total Amount</th> --}}
+          <th scope="col">Payment</th>
+            <th scope="col">Status</th>
+          <th> </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each ordersItems}}
+       
+        <tr>
+          <th scope="row">{{inc @index}}</th>
+          <td><img style="width:80px; height:100px" src="/product-images/{{this.lookupProduct._id}}.jpg" alt=""></td>
+          {{!-- <td>{{this.result.name}}<br>
+            Category:{{this.result.category}}<br>
+            Quantity:{{this.result.quantity}}<br>
+            Price:{{this.result.price}}<br>
+            stock:{{this.result.stock}}<br>
+            payment:{{this.paymentMethod}}</td>
+          <td>{{this.date}}</td>
+          <td>{{this.status}}</td>
+          <td>{{this.deliveryDetails.name}}<br>
+            {{this.deliveryDetails.address}}<br>
+            {{this.deliveryDetails.city}}<br>
+            {{this.deliveryDetails.mobile}}</td> --}}
+          <td>{{this.lookupProduct.name}}<br>
+         
+            Category:{{this.lookupProduct.category}}<br>
+            Quantity:{{this.products.quantity}}<br>
+            Price:{{this.lookupProduct.price}}<br>
+            Stock:{{this.lookupProduct.stock}}</td>
+          <td>
+            {{this.lookupUser.name}}<br>
+            {{this.lookupUser.number}}
+          </td>
+          <td>{{this.date}}</td>
+          <td>{{this.status}}</td>
+          <td>{{this.deliveryDetails.name}}<br>
+            {{this.deliveryDetails.address}}<br>
+            {{this.deliveryDetails.city}}<br>
+            {{this.deliveryDetails.mobile}}</td>
+         
+            <td>
+              {{this.paymentMethod}}
+            </td>
+            {{!-- {{#if products.cancel}}
+            <td style="color: red;" >Order-Cancelled</td>
+            {{else}} --}}
+
+ {{#if this.products.isCancelled}}
+                      <td>  {{this.products.orderStatus}}</td> 
+                     
+                        
+                        {{else}} 
+
+            <td>
+              {{this.products.orderStatus}}
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal{{this._id}}">
+              {{this.orderStatus}}
+            </button>
+            <div class="modal fade" id="exampleModal{{this._id}}" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Order Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                  
+                    <form id="changeStatus{{this._id}}{{this.products.item}}
+                    "onsubmit="changeDeliveryStatus('{{this._id}}','{{this.products.item}}')">
+                      <input type="text" value="{{this._id}}" name="orderId" hidden>
+                      <input type="text" value="{{this.products.item}}" name="productId" hidden>
+                      <select name="delivery" id="">
+                        <option value="">{{this.orderStatus}}</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                      </select>
+                      <button type="submit">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          {{/if}}
+
+          
+          {{!-- {{/if}} --}}
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<script>
+  function changeDeliveryStatus(orderId,productId) {
+    $.ajax({
+      url: '/admin/changeDeliveryStatus',
+      method: 'post',
+      data: $('#changeStatus' + orderId + productId).serialize(),
+      success: (response) => {
+        location.reload()
+      }
+    })
+
+  }
+</script>
