@@ -1179,5 +1179,69 @@ module.exports = {
     });
   },
 
+  getInvoiceData:(orderId,proId)=>{
+    // console.log(orderId);
+    // console.log(5555555555555);
+    // console.log(proId);
+    return new Promise (async(resolve,reject)=>{
+try {
+  const invoiceDetails= await db.get().collection(collection.ORDER_COLLECTION).aggregate
+  (
+    // [
+    //   {
+    //     '$match': {
+    //       '_id': new ObjectId(orderId)
+    //     }
+    //   }, {
+    //     '$unwind': {
+    //       'path': '$products'
+    //     }
+    //   }, {
+    //     '$lookup': {
+    //       'from': 'product', 
+    //       'localField': 'products.item', 
+    //       'foreignField': '_id', 
+    //       'as': 'products'
+    //     }
+    //   }, {
+    //     '$unwind': {
+    //       'path': '$products'
+    //     }
+    //   }, 
+    // ]
 
-};
+    [
+      {
+        '$match': {
+          '_id': ObjectId(orderId)
+        }
+      }, {
+        '$unwind': {
+          'path': '$products'
+        }
+      }, {
+        '$lookup': {
+          'from': 'product', 
+          'localField': 'products.item', 
+          'foreignField': '_id', 
+          'as': 'lookupProducts'
+        }
+      }, {
+        '$unwind': {
+          'path': '$lookupProducts'
+        }
+      }
+    ]
+  ).toArray()
+
+  resolve(invoiceDetails)
+  
+ 
+} catch (error) {
+  reject(error)
+  
+}
+    })
+  
+  }
+}

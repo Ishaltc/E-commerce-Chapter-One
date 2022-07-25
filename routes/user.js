@@ -125,9 +125,11 @@ router.post("/login", (req, res) => {
 
 router.get("/cart", verifyLogin, async (req, res) => {
   console.log(req.session.user._id);
+ 
   let products = await userHelpers.getCartProducts(req.session.user._id);
   cartCount = await userHelpers.getCartCount(req.session.user._id);
   const totalValue = await userHelpers.getTotalAmount(req.session.user._id);
+  
 
   if (cartCount > 0) {
     res.render("user/cart", {
@@ -160,10 +162,7 @@ router.get("/shop", async (req, res) => {
     if (details) {
       productsfilter = details
     }
-
     res.redirect("/shopee")
-
-
   });
 });
 
@@ -207,8 +206,7 @@ router.get('/shopee', async (req, res, next) => {
 
 //checkout page,
 router.get("/checkout/:id", verifyLogin, async (req, res, next) => {
-
-  const user = req.session.user
+ const user = req.session.user
   console.log(req.params.id)
   let cartId = req.params.id
   if (cartId == 'cart') {
@@ -234,6 +232,8 @@ router.get("/checkout/:id", verifyLogin, async (req, res, next) => {
         cartCount: allData[3],
         user
       })
+      // console.log(8888888888888888888888888888888888888);
+      // console.log(allData);
 
     } catch (error) {
       next(error);
@@ -260,6 +260,8 @@ router.post("/change-product-quantity", (req, res, next) => {
     res.json(response);
   });
 });
+
+
 
 //payment method
 router.post("/checkout", async (req, res, next) => {
@@ -292,7 +294,7 @@ router.post("/checkout", async (req, res, next) => {
         }
       })
 
-    }vi
+    }
   } catch (error) {
     next(error)
   }
@@ -303,7 +305,9 @@ router.post("/checkout", async (req, res, next) => {
 
 // order success page
 router.get("/order-success", verifyLogin, (req, res) => {
-    res.render("user/order-success", { layout: "layout" });
+  user=req.session.user
+  // console.log(req.params.id);
+    res.render("user/order-success", { layout: "layout" ,user});
   });
 
 
@@ -312,10 +316,12 @@ router.get("/order-success", verifyLogin, (req, res) => {
 router.get("/order-details/", verifyLogin, async (req, res, next) => {
   user = req.session.user
   try {
+   
     const orderItems = await userHelpers.getOrderProducts(req.session.user._id)
+   
     const count = await userHelpers.getOrderCount(req.session.user._id)
     if (count > 0) {
-      console.log(orderItems);
+     
 
       res.render("user/order-details", { layout: "layout", orderItems, user, count });
     } else {
@@ -387,6 +393,7 @@ router.post("/removeWishlist", (req, res) => {
 
 // bank payment
 router.post("/verify-payment", verifyLogin, (req, res) => {
+  console.log(req.body);
   userHelpers
     .verifyPayment(req.body)
     .then(() => {
@@ -627,7 +634,7 @@ router.get('/requested-order', verifyLogin, async (req, res, next) => {
   try {
     // const datas = await userHelpers.userProfile(req.session.user._id)
     const request = await userHelpers.getRequestDetails(req.session.user._id)
-    console.log(request);
+  
     if (request) {
       res.render('user/requested-order', { layout: 'layout', user })
     } else {
@@ -714,7 +721,7 @@ router.get('/edit-profile-address', verifyLogin, async (req, res, next) => {
 //editing profile address
 router.post('/editing-address/:id', verifyLogin, (req, res, next) => {
   try {
-    console.log(req.body);
+  //  console.log(req.body);
     userHelpers.editAddress(req.body, req.params.id)
 
     res.redirect('/user-profile')
@@ -724,10 +731,24 @@ router.post('/editing-address/:id', verifyLogin, (req, res, next) => {
 })
 
 //invoice
-router.get('/invoice', verifyLogin, (req, res) => {
-  user = req.session.user
+router.get('/invoice/:id/', verifyLogin,async (req, res,next) => {
+  try{
+    console.log(4444444444444);
 
-  res.render('user/invoice', { layout: 'layout', user })
+  // console.log(req.params.id);
+  // console.log(req.params.oId);
+  const invoData=req.session.orderItems
+  console.log(invoData);
+  
+ const user = req.session.user
+//  const invoiceData= await userHelpers.getInvoiceData(req.params.orderId,req.params)
+//  console.log(22222222);
+//  console.log(invoiceData);
+//  console.log(333333333333333);
+  res.render('user/invoice', { layout: 'layout',user})
+  }catch(error){
+next(error)
+  }
 })
 
 

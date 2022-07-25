@@ -306,6 +306,7 @@ router.get('/nodemailer-form/:emailId',verifyAdminLogin,(req,res)=>{
 // nodemailer
 router.post("/sent-mail",verifyAdminLogin, async (req, res, next) => {
   try {
+  
     const { name, userId, company, email, phone, message } = req.body;
     await mailconnection.doEmail(email, name, message)
     res.redirect("back");

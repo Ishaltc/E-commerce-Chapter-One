@@ -89,7 +89,7 @@ module.exports = {
     });
   },
   deleteCategory: (cateId) => {
-    // console.log(cateId);
+    
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collection.CATEGORY_COLLECTION)
@@ -158,8 +158,9 @@ module.exports = {
   },
 
   addBanner: (data) => {
-    return new Promise((resolve, reject) => {
-      db.get()
+    return new Promise(async(resolve, reject) => {
+      try{
+    const data= await db.get()
         .collection(collection.BANNER_COLLECTION)
         .insertOne({
           banner: {
@@ -168,9 +169,12 @@ module.exports = {
             isDeleted: false,
           },
         })
-        .then((data) => {
+        
           resolve(data);
-        });
+        
+      }catch(error){
+        reject(error)
+      }
     });
   },
 
@@ -398,7 +402,8 @@ module.exports = {
             },
           ])
           .toArray();
-        resolve(totalSalesCount[0].count);
+          console.log(49872394792374987279);
+        resolve(totalSalesCount);
         console.log(totalSalesCount);
       });
     } catch (error) {
@@ -570,7 +575,7 @@ module.exports = {
         orderStatus.push(cancelLen);
         resolve(orderStatus);
 
-        console.log(orderStatus);
+        //console.log(orderStatus);
       } catch (error) {
         reject(error);
       }

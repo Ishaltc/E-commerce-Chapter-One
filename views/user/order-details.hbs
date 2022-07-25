@@ -22,6 +22,9 @@
                     <th scope="col">Status</th>
                     <th scope="col">Address</th>
                     <th>Delivery Status</th>
+                     <th>Invoice</th>
+                    <th></th>
+                   
                     
                     {{!-- <th scope="col">Total Amount</th> --}}
                     <th scope="col" ></th>
@@ -34,12 +37,13 @@
               
                
                 {{#each orderItems}}
-                
+               
                 <tr>
                     <th scope="row">{{inc @index}}</th>
 
                     <td><img style="width:80px; height:100px" src="/product-images/{{this.product}}.jpg" alt=""></td>
                     <td>{{this.productname}}<br>
+                   
                  Category:{{this.category}}<br>
                 Quantity:{{this.quantity}}<br>
                    Price:{{this.price}}</td>
@@ -55,19 +59,26 @@
                          <td style="color: red;">cancelled</td>
                          {{else}} --}}
                            <td>{{this.orderStatus}}</td>
+                           
+                           
                        {{!-- {{/if}} --}}
                         {{#if this.isCancelled }}
                        
                      {{else}}
-                        
+                          <td>
+
+                    <a href="/invoice/'{{this._id}}','{{this.product}}" class="btn btn-dark " role="button" aria-disabled="true"><i class="bi bi-receipt-cutoff"></i></a>
+                </td>
                         {{!-- {{else if this.orderStatus.}}  --}}
                     
                   <td><button type="submit" class="btn btn-default text-danger pull-right" onclick="cancelOrder('{{this._id}}','{{this.product}}')"><i class="bi bi-x-circle"></i></button></td>
+                  
 {{/if}}
                 </tr>
                 
               
                 {{/each}}
+              
 
             </tbody>
         </table>
