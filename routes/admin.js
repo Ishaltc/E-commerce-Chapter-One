@@ -27,6 +27,7 @@ const verifyAdminLogin = (req, res, next) => {
 
 router.get("/", verifyAdminLogin, async (req, res, next) => {
   let admin = req.session.admin;
+
   try {
     const allData = await Promise.all([
       adminHelpers.getPaymentCount(),
@@ -255,6 +256,7 @@ router.get('/admin-order-details', verifyAdminLogin, async (req, res, next) => {
   try {
     const ordersItems = await adminHelpers.
       getallOrderItems()
+      
 
     res.render('admin/admin-order-details',
       { layout: "admin-layout", ordersItems,admin: true })
@@ -269,16 +271,12 @@ router.get('/admin-order-details', verifyAdminLogin, async (req, res, next) => {
 router.post('/changeDeliveryStatus', verifyAdminLogin, async (req, res, next) => {
   try {
     const response = await adminHelpers.changeDeliveryStatus(req.body)
-
-
     res.json(response)
   } catch (error) {
     next(error)
   }
 
 })
-
-
 
 //request details
 router.get('/request-details/:id', verifyAdminLogin, async (req, res, next) => {

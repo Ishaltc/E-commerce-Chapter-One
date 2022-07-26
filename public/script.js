@@ -85,7 +85,23 @@ function removeProduct(cartId, proId) {
     method: "post",
     success: (response) => {
       if (response.removeProducts) {
-        alert("Product Removed Successfully");
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'success',
+          title: 'Deleted successfully'
+        })
+        // alert("Product Removed Successfully");
         location.reload();
       } else {
         document.getElementById(proId).innerHTML = response.removeProducts;

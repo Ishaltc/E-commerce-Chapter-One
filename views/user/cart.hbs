@@ -60,7 +60,7 @@
                                 <td class="cart__quantity d-flex mt-4" >
                                     <button type="button"
                                     
- class="btn btn-light"onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)" >-</button>
+ class="btn btn-light"onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}','{{this.product.stock}}',-1)" >-</button>
                                     
                                            
                                     {{!-- <div class="pro-qty" id="{{this.product._id}}">
@@ -68,7 +68,7 @@
                                     </div> --}}
                                     <span id="{{this.product._id}}" class="mt-2 mx-4">{{this.quantity}}</span>
                                     <button type="button"
-                                            class="btn btn-light mt-2"  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1) " >+</button>
+                                            class="btn btn-light mt-2"  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}','{{this.product.stock}}',1) " >+</button>
                                 </td>
                                 <td class="cart__total" id="{{this.product._id}}">{{totalPrice}}</td>
                               
@@ -207,9 +207,11 @@
 <script>
     
   //changing quantity in cart
-function changeQuantity(cartId, proId,userId, count,) {
+function changeQuantity(cartId, proId,userId, stock,count,) {
+   
     
    let quantity=parseInt(document.getElementById(proId).innerHTML)
+   if(quantity+count<=stock){
   count=parseInt(count)
   $.ajax({
     url: "/change-product-quantity",
@@ -235,6 +237,9 @@ function changeQuantity(cartId, proId,userId, count,) {
       }
     },
   });
+   }else{
+  Swal.fire('Quantity is not Available')
+   }
 }
    
   

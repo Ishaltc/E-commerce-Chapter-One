@@ -1,4 +1,4 @@
-                        
+      <div id="invoice">                  
 <style>
     .receipt-content .logo a:hover {
   text-decoration: none;
@@ -211,7 +211,7 @@
   color: #969CAD; 
 }                    
 </style>
-<div class="receipt-content">
+<div class="receipt-content"  >
     <div class="container bootstrap snippets bootdey">
 		<div class="row">
 			<div class="col-md-12">
@@ -219,8 +219,8 @@
 					<div class="intro">
 						Hi <strong>{{user.name}}</strong>, 
 						<br>
-						{{#each invoiceData}}
-						This is the receipt for a payment of <strong>₹{{this.totalAmount}}</strong> (IND) for your works
+						{{#each data}}
+						This is the receipt for a payment of <strong>₹{{this.total}}</strong> (IND) for your order
 					</div>
 
 					<div class="payment-info">
@@ -276,7 +276,7 @@
   <thead>
     
       <th scope="col">No</th>
-      <th scope="col">Products</th>
+      <th scope="col">Product</th>
       <th scope="col">Quantity</th>
       <th scope="col">Price</th>
     
@@ -285,17 +285,20 @@
     
     
       <th scope="row">{{inc @index}}</th>
-      <td>{{this.lookupProducts.name}}</td>
+      <td>{{this.lookProduct.name}}</td>
       <td>{{this.products.quantity}}</td>
-      <td>{{this.lookupProducts.price}}</td>
+      <td>{{this.lookProduct.price}}</td>
     
   </tbody>
+  {{!-- <td>Total Amount</td> --}}
+  <th></th>
+  <th></th>
+  <th></th>
+  <th>Total Price<br>
+  {{this.total}}</th>
 </table>
 						<div class="print">
-							<a href="#">
-								<i class="fa fa-print"></i>
-								Print this receipt
-							</a>
+							<button onclick="generatePDF()" class="btn btn-danger mb-2 ml-auto mr-5">Download as PDF</button>
 						</div>
 					</div>
 				</div>
@@ -306,4 +309,17 @@
 			</div>
 		</div>
 	</div>
-</div>                    
+</div>  
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    function generatePDF() {
+        // Choose the element that our invoice is rendered in.
+        const element = document.getElementById('invoice');
+        // Choose the element and save the PDF for our user.
+        html2pdf().from(element).save();
+    }
+</script>

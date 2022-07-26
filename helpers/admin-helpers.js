@@ -328,7 +328,7 @@ module.exports = {
 
             {
               $match: {
-                data: "pending",
+                data: "delivered",
               },
             },
             {
@@ -344,6 +344,7 @@ module.exports = {
         if (total[0]) {
           let newTotal = total[0].total;
           resolve(newTotal);
+         
         } else {
           resolve(Total);
         }
@@ -389,7 +390,7 @@ module.exports = {
 
             {
               $match: {
-                data: "order Cancelled",
+                data: "pending",
               },
             },
             {
@@ -402,9 +403,9 @@ module.exports = {
             },
           ])
           .toArray();
-          console.log(49872394792374987279);
-        resolve(totalSalesCount);
-        console.log(totalSalesCount);
+      
+       resolve(totalSalesCount)
+      
       });
     } catch (error) {
       reject(error);
@@ -461,6 +462,7 @@ module.exports = {
         let razorPayLen = razorPayProducts.length;
         methods.push(razorPayLen);
         resolve(methods);
+       
       } catch (error) {
         console.log(error);
         reject(error);
@@ -608,93 +610,3 @@ module.exports = {
 
 
 
-  //status details for chart
-//   getStatusDetails:()=>{
-//     let orderStatus=[]
-//     return new Promise(async(resolve,reject)=>{
-//       let placedProduct= await db.get().collection(collection.ORDER_COLLECTION).aggregate([
-// {
-//   $match:{
-//     status:'placed'
-//   }
-// }
-//       ])
-//       try {
-        
-//       } catch (error) {
-        
-//       }
-//     })
-//   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // nodemailerSms:(data)=>{
-  //   try {
-  //     return new Promise ((resolve,reject)=>{
-  //       const output=
-  //     })
-  //   } catch (error) {
-  //     reject(error)
-  //   }
-  // }
-
-
- 
-  // addLang: (data) => {
-  //     return new Promise((resolve, reject) => {
-  //         db.get().collection(collection.LANGUAGE_COLLECTION).insertOne({ "name": data.name, "isDeleted": false }).then((data) => {
-  //             resolve(data)
-
-  //         })
-  //     })
-  // },
-
-  // viewLang:()=>{
-  //     return new Promise(async(resolve,reject)=>{
-  //         let data= await db.get().collection(collection.LANGUAGE_COLLECTION).find({'isDeleted':false})
-  //            if(data) resolve(data)
-  //            console.log(data);
-
-  //         })
-
-  // },
-  // deleteLang:(langDele)=>{
-  //     return new Promise((resolve,reject)=>{
-  //         db.get().collection(collection.LANGUAGE_COLLECTION).updateOne({_id:ObjectId(langDele)},{$set:{"isDeleted":true}}).then(()=>{
-  //             resolve()
-
-  //         })
-  //     })
-
-  // }
-
-
-//   getUsersRequest:(userId)=>{
-
-//     return new Promise (async(resolve,reject)=>{
-//       try {
-//         const userRequest= await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userId)})
-//         resolve(userRequest)
-//       //console.log(userRequest);
-//         console.log(userRequest.request[0].number);
-        
-// }catch(error){
-//   reject(error)
-// }
-//       })
-
-
-//     }
-    

@@ -84,11 +84,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
+                    
                   </div>
                   <div class="modal-body">
-                  
-                    <form id="changeStatus{{this._id}}{{this.products.item}}
-                    "onsubmit="changeDeliveryStatus('{{this._id}}','{{this.products.item}}')">
+                 
+                    <form id="changeStatus{{this._id}}{{this.products.item}}" 
+                      onsubmit="changeDeliveryStatus('{{this._id}}','{{this.products.item}}')">
                       <input type="text" value="{{this._id}}" name="orderId" hidden>
                       <input type="text" value="{{this.products.item}}" name="productId" hidden>
                       <select name="delivery" id="">
@@ -117,6 +118,7 @@
 
 <script>
   function changeDeliveryStatus(orderId,productId) {
+   
     $.ajax({
       url: '/admin/changeDeliveryStatus',
       method: 'post',

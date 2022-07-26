@@ -2,6 +2,15 @@
 <div class="container">
  <h3 class="text-danger mt-4">REQUEST A BOOK</h3>
  <p class="" style="font-size: 15px;">Please fill up the form below to Request a Book.We will inform you as soon as the book is available</p>
+
+ {{#if success}}
+ <div class="alert alert-success alert dismissible"></div>
+ <a href="#" class="close" data-dismiss="alert" aria-label="close">
+&times;
+
+ </a>
+ <strong>Success!</strong>Your request has been sent
+ {{/if}}
 <form class="mt-3"  action="/request-book/{{this.user._id}}" method="post">
    
   <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -95,7 +104,7 @@
 
   <!-- Submit button -->
   {{!-- <button type="submit" class="btn btn-primary btn-block mb-4">Place order</button> --}}
-  <button type="submit" class="btn btn-danger">Submit</button>
+  <button type="submit"  class="btn btn-danger">Submit</button>
 </form>
 </div class="mb-5">
 

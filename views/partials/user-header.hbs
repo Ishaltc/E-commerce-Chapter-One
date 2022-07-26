@@ -28,12 +28,13 @@
                                 {{/if}}
                             </ul>
                         </li>
-                        
+                       
                       
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3">
+                
 
                 <div class="header__right">
                     <div class="header__right__auth">
@@ -50,17 +51,17 @@
                         
                     </div>
                     <ul class="header__right__widget">
-                        <li>
-                            <span class="icon_search search-switch" id="search-item"   onkeyup="search"></span> 
+                        {{!-- <li>
+                            <span class="icon_search search-switch"></span> 
                            
-                            </li>
+                            </li> --}}
                         <li><a href="/wishlist"><span class="icon_heart_alt" ></span>
                                
                             </a></li>
                         <li id="cartRefresh"><a href="/cart"><span class="icon_bag_alt">
 
                         </span>
-                                <div class="tip"  id="cart-count" >{{cartCount}}</div>
+                                <div class="tip"  id="cart-count">{{cartCount}}</div>
                             </a></li>
                     </ul>
                 </div>
@@ -72,14 +73,14 @@
     </div>
 </header>
 <!-- Search Begin -->
-<div class="search-model">
+{{!-- <div class="search-model">
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch">+</div>
         <form class="search-model-form" action="/search-products" method="post" >
             <input type="text" id="search-input" name="search" placeholder="Search here.....">
         </form>
     </div>
-</div>
+</div> --}}
 <!-- Search End -->
 
 

@@ -117,6 +117,8 @@ module.exports = {
       item: ObjectId(proId),
       quantity: 1,
       orderStatus: "pending",
+    
+
     };
     return new Promise(async (resolve, reject) => {
       let userCart = await db
@@ -399,16 +401,15 @@ module.exports = {
   },
 
   getCartProductList: (userId) => {
-  
     return new Promise(async (resolve, reject) => {
-      try{
-      let cart = await db
-        .get()
-        .collection(collection.CART_COLLECTION)
-        .findOne({ user: ObjectId(userId) });
-      resolve(cart.products);
-      }catch(error){
-        reject(error)
+      try {
+        let cart = await db
+          .get()
+          .collection(collection.CART_COLLECTION)
+          .findOne({ user: ObjectId(userId) });
+        resolve(cart.products);
+      } catch (error) {
+        reject(error);
       }
     });
   },
@@ -457,7 +458,7 @@ module.exports = {
   verifyPayment: (details) => {
     return new Promise((resolve, reject) => {
       const crypto = require("crypto");
-      let hmac = crypto.createHmac("sha256",process.env.RAZORPAY_SECRET_ID);
+      let hmac = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET_ID);
       hmac.update(
         details["payment[razorpay_order_id]"] +
           "|" +
@@ -538,7 +539,7 @@ module.exports = {
               },
             },
             {
-              $sort: { date: -1 },
+              $sort: { date:-1},
             },
           ])
           .toArray();
@@ -632,8 +633,7 @@ module.exports = {
           },
           {
             $unwind: {
-              path: "$lookupProduct", 
-              
+              path: "$lookupProduct",
             },
           },
         ])
@@ -765,9 +765,7 @@ module.exports = {
   //order-Cancel
   userCancelOrder: (details) => {
     const { order, product } = details;
-    // console.log(order);
-    // console.log(777777777777777777777777);
-    // console.log(product);
+   
 
     return new Promise(async (resolve, reject) => {
       try {
@@ -778,54 +776,14 @@ module.exports = {
             { _id: ObjectId(order), "products.item": ObjectId(product) },
             {
               $set: {
-                // orderStatus: 'Cancelled',
-                // isOrderCancelled:true
+               
                 "products.$.orderStatus": "order Cancelled",
                 "products.$.isCancelled": "true",
+"products.$.isInvoice":true
               },
             }
           );
-        // .aggregate
-        // [
-        //   {
-        //     '$match': {
-        //       '_id': ObjectId(details.order)
-        //     }
-        //   }, {
-        //     '$unwind': {
-        //       'path': '$products'
-        //     }
-        //   }, {
-        //     '$match': {
-        //       'products.$.item': ObjectId(details.product)
-        //     }
-        //   }, {
-        //     '$set': {
-        //       'products.$.cancel': 'true'
-        //     }
-        //   }
-        // ]
-
-        // [
-        //   {
-        //     '$match': {
-        //       '_id':  ObjectId(details.order)
-        //     }
-        //   }, {
-        //     '$match': {
-        //       'products.item':ObjectId(details.product)
-        //     }
-        //   }, {
-        //     '$unwind': {
-        //       'path': '$products'
-        //     }
-        //   }, {
-        //     '$set': {
-        //       'products.cancel': true
-        //     }
-        //   }
-        // ]
-
+       
         resolve();
         console.log("product cancelled successfully");
       } catch (error) {
@@ -882,7 +840,7 @@ module.exports = {
     });
   },
 
-  searchProducts: (search) => {
+  searchProducts: (key) => {
     return new Promise(async (resolve, reject) => {
       try {
         let products = await db
@@ -1085,29 +1043,6 @@ module.exports = {
     }
   },
 
-  //   .updateOne
-  //   (
-
-  // {
-
-  //     'products.item':ObjectId(details.product)},
-  //   {
-
-  //   $set: {
-  //        'products.cancel': true
-  //        }
-  // }
-
-  //   )
-  //   resolve(cancel)
-  // }catch(error){
-  //   reject(error)
-  // }
-  // })
-  //   }
-
-  //
-
   //buy now
   getaproductAmount: (proId) => {
     try {
@@ -1115,7 +1050,7 @@ module.exports = {
         const buyNowProduct = await db
           .get()
           .collection(collection.PRODUCT_COLLECTION)
-          .findOne({ _id: ObjectId(proId) })
+          .findOne({ _id: ObjectId(proId) });
         resolve(buyNowProduct);
       });
     } catch (error) {
@@ -1123,16 +1058,15 @@ module.exports = {
     }
   },
   //buy now
-  getPlaceOrder:(order, products, total)=>{
-   
-    let Products=[
+  getPlaceOrder: (order, products, total) => {
+    let Products = [
       {
         item: ObjectId(products._id),
         quantity: 1,
-        orderStatus: 'pending'
-      }
-    ]
-  
+        orderStatus: "pending",
+      },
+    ];
+
     return new Promise(async (resolve, reject) => {
       // console.log(order,products,total);
       const status = order["payment-method"] === "COD" ? "placed" : "pending";
@@ -1154,94 +1088,85 @@ module.exports = {
         userId: ObjectId(order.userId),
         paymentMethod: order["payment-method"],
         products: Products,
-        totalAmount:total,
+        totalAmount: total,
         status: status,
         date: date,
         time: time,
       };
 
- db.get()
+      db.get()
         .collection(collection.ORDER_COLLECTION)
         .insertOne(orderObj)
         .then((response) => {
-            db.get()
-              .collection(collection.PRODUCT_COLLECTION)
-              .updateOne(
-                { _id: ObjectId(Products[0].item) },
-                {
-                  $inc: { stock: -1 },
-                }
-              );
-          
+          db.get()
+            .collection(collection.PRODUCT_COLLECTION)
+            .updateOne(
+              { _id: ObjectId(Products[0].item) },
+              {
+                $inc: { stock: -1 },
+              }
+            );
 
           resolve(response.insertedId);
         });
     });
   },
 
-  getInvoiceData:(orderId,proId)=>{
-    // console.log(orderId);
-    // console.log(5555555555555);
-    // console.log(proId);
-    return new Promise (async(resolve,reject)=>{
-try {
-  const invoiceDetails= await db.get().collection(collection.ORDER_COLLECTION).aggregate
-  (
-    // [
-    //   {
-    //     '$match': {
-    //       '_id': new ObjectId(orderId)
-    //     }
-    //   }, {
-    //     '$unwind': {
-    //       'path': '$products'
-    //     }
-    //   }, {
-    //     '$lookup': {
-    //       'from': 'product', 
-    //       'localField': 'products.item', 
-    //       'foreignField': '_id', 
-    //       'as': 'products'
-    //     }
-    //   }, {
-    //     '$unwind': {
-    //       'path': '$products'
-    //     }
-    //   }, 
-    // ]
-
-    [
-      {
-        '$match': {
-          '_id': ObjectId(orderId)
-        }
-      }, {
-        '$unwind': {
-          'path': '$products'
-        }
-      }, {
-        '$lookup': {
-          'from': 'product', 
-          'localField': 'products.item', 
-          'foreignField': '_id', 
-          'as': 'lookupProducts'
-        }
-      }, {
-        '$unwind': {
-          'path': '$lookupProducts'
-        }
+  //invoice details
+  getInvoiceData: (details) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const invoice = await db
+          .get()
+          .collection(collection.ORDER_COLLECTION)
+          .aggregate([
+            {
+              $match: {
+                _id: ObjectId(details.order),
+              },
+            },
+            {
+              $unwind: {
+                path: "$products",
+              },
+            },
+            {
+              $match: {
+                "products.item": ObjectId(details.product),
+              },
+            },
+            {
+              $lookup: {
+                from: "product",
+                localField: "products.item",
+                foreignField: "_id",
+                as: "lookProduct",
+              },
+            },
+            {
+              $unwind: {
+                path: "$lookProduct",
+              },
+            },
+            {
+              $project: {
+                _id: 1,
+                deliveryDetails: 1,
+                products: 1,
+                date: 1,
+                time: 1,
+                lookProduct: 1,
+                total: {
+                  $multiply: ["$products.quantity", "$lookProduct.price"],
+                },
+              },
+            },
+          ])
+          .toArray();
+        resolve(invoice);
+      } catch (error) {
+        reject(error);
       }
-    ]
-  ).toArray()
-
-  resolve(invoiceDetails)
-  
- 
-} catch (error) {
-  reject(error)
-  
-}
-    })
-  
-  }
-}
+    });
+  },
+};
